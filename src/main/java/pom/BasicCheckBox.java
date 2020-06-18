@@ -44,8 +44,20 @@ public class BasicCheckBox extends BasePage{
         return true;
     }
 
+    public boolean isAllUnselected(){
+        for(WebElement el : boxes){
+            if(el.isSelected())
+                return false;
+        }
+        return true;
+    }
+
     public String getBtnValue(){
         return this.checkBtn.getAttribute("value");
+    }
+
+    public void clickButton(){
+        this.checkBtn.click();
     }
 
     public void selectOne(int i){
