@@ -1,16 +1,19 @@
 package com.automation;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pom.BasicCheckBox;
-import pom.BasicFirstForm;
-import pom.BasicRadioButton;
+import pom.BasicCheckBoxPage;
+import pom.BasicDropdownPage;
+import pom.BasicFirstFormPage;
+import pom.BasicRadioButtonPage;
 
 public class SimpleTest{
     WebDriver driver;
@@ -25,7 +28,7 @@ public class SimpleTest{
     @Test(priority = 0)
     public void firstForm(){
 
-        BasicFirstForm firstForm = new BasicFirstForm(driver, "https://www.seleniumeasy.com/");
+        BasicFirstFormPage firstForm = new BasicFirstFormPage(driver, "https://www.seleniumeasy.com/");
         firstForm.get();
         String message = "a";
 
@@ -46,7 +49,7 @@ public class SimpleTest{
 
     @Test(priority = 1)
     public void checkBoxes(){
-        BasicCheckBox checkBoxPage = new BasicCheckBox(driver, "https://www.seleniumeasy.com");
+        BasicCheckBoxPage checkBoxPage = new BasicCheckBoxPage(driver, "https://www.seleniumeasy.com");
         checkBoxPage.get();
 
         checkBoxPage.clickCheckbox();
@@ -78,7 +81,7 @@ public class SimpleTest{
 
     @Test(priority = 2)
     public void radioButtons(){
-        BasicRadioButton radioButtonPage = new BasicRadioButton(driver, "https://www.seleniumeasy.com");
+        BasicRadioButtonPage radioButtonPage = new BasicRadioButtonPage(driver, "https://www.seleniumeasy.com");
         radioButtonPage.get();
 
         // click Male and check that it was indeed selected
@@ -100,9 +103,24 @@ public class SimpleTest{
         Assert.assertTrue(radioButtonPage.getMessage().contains("Male"));
     }
 
+    @Test(priority = 3)
+    public void dropdown(){
+
+        BasicDropdownPage dropdownPage = new BasicDropdownPage(driver, "https://www.seleniumeasy.com");
+        /*dropdownPage.get();
+        WebElement d = dropdownPage.getDriver().findElement(By.id("select-demo")); // this works... ??? why?
+
+
+
+*/
+        dropdownPage.get();
+        dropdownPage.selectByValue("Thursday");
+        Assert.assertTrue(dropdownPage.getSelected().contains("Thursday"));
+    }
+
     @AfterClass
     public void over(){
-        driver.quit();
+        //driver.quit();
     }
 
 }
