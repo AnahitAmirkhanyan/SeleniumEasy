@@ -1,13 +1,10 @@
 package com.automation;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pom.BasicCheckBoxPage;
@@ -107,12 +104,6 @@ public class SimpleTest{
     public void dropdown(){
 
         BasicDropdownPage dropdownPage = new BasicDropdownPage(driver, "https://www.seleniumeasy.com");
-        /*dropdownPage.get();
-        WebElement d = dropdownPage.getDriver().findElement(By.id("select-demo")); // this works... ??? why?
-
-
-
-*/
         dropdownPage.get();
         dropdownPage.selectByValue("Thursday");
         Assert.assertTrue(dropdownPage.getSelected().contains("Thursday"));
@@ -120,7 +111,7 @@ public class SimpleTest{
 
     @AfterClass
     public void over(){
-        //driver.quit();
+        driver.quit();
     }
 
 }
